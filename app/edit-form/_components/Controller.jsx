@@ -81,6 +81,7 @@ const Controller = ({ selectedTheme, selectedBackground, selectedStyle }) => {
                                 className="rounded-lg"
                             />
                         </div>
+                        <h2 className="text-center">{style.name}</h2>
                     </div>
                 ))}
             </div>
