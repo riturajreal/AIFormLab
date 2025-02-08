@@ -96,7 +96,7 @@ const EditForm = ({ params }) => {
                 );
             console.log("result: ", result);
             setLoading(false);
-            toast.success('Form updated successfully')
+            toast.success('Form Updated Successfully')
         } catch (error) {
             setError(error);
             setLoading(false);
