@@ -11,6 +11,7 @@ import { Button } from "../../../components/ui/button";
 import { RWebShare } from "react-web-share"
 import FormUi from "../_components/FormUi";
 import { toast } from "sonner"
+import Controller from "../_components/Controller";
 
 const EditForm = ({ params }) => {
     const { user } = useUser();
@@ -133,17 +134,18 @@ const EditForm = ({ params }) => {
             </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-            {/* controller */}
             <div className="p-5 border rouned-lg shadow-md">
-                controller
+                <Controller selectedTheme={(value) => setSelectedTheme(value)} />
             </div>
             <div className="md:col-span-2 border rounded-lg p-5 flex items-center justify-center">
                 <FormUi
                     jsonForm={jsonForm}
+                    selectedTheme={selectedTheme}
+                    selectedBackground={selectedBackground}
+                    selectedStyle={selectedStyle}
                     onFieldUpdate={onFieldUpdate}
                     deleteField={(index) => deleteField(index)} />
             </div>
-
         </div>
     </div>;
 };

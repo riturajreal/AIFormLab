@@ -14,10 +14,10 @@ import FieldEdit from "./FieldEdit";
 
 
 
-const FormUi = ({ jsonForm, onFieldUpdate, deleteField }) => {
+const FormUi = ({ jsonForm, onFieldUpdate, deleteField, selectedTheme, selectedBackground, selectedStyle }) => {
 
   return (
-    <div className="border p-5 md:w-[600px] rounded-lg">
+    <div className="border p-5 md:w-[600px] rounded-lg" data-theme={selectedTheme}>
       <h1 className="font-bold text-2xl text-center">{jsonForm?.formTitle}</h1>
       <h1 className="text-sm text-gray-400 text-center">{jsonForm?.formHeading}</h1>
       {jsonForm?.fields?.map((field, index) => (
@@ -26,7 +26,7 @@ const FormUi = ({ jsonForm, onFieldUpdate, deleteField }) => {
             <div className="my-3 w-full">
               <label className="text-xs text-gray-500">{field.label}</label>
               <Select>
-                <SelectTrigger className="w-full">
+                <SelectTrigger className="w-full bg-transparent">
                   <SelectValue placeholder={field.placeholder} />
                 </SelectTrigger>
                 <SelectContent>
@@ -91,6 +91,7 @@ const FormUi = ({ jsonForm, onFieldUpdate, deleteField }) => {
           </div>
         </div>
       ))}
+      <button className="btn btn-primary">Submit</button>
     </div>
   );
 };
