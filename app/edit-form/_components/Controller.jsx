@@ -1,4 +1,5 @@
-import React from "react";
+'use client';
+import React, { useState } from "react";
 import {
     Select,
     SelectContent,
@@ -7,11 +8,15 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 import Themes from "../../_data/Themes";
+import GradientBg from "../../_data/GradientBg";
+import { Button } from "../../../components/ui/button";
 
 
-const Controller = ({ selectedTheme }) => {
+const Controller = ({ selectedTheme, selectedBackground }) => {
+    const [showMore, setShowMore] = useState(6);
     return (
         <div>
+            {/* theme selection controller */}
             <h2 className="my-1">Select Theme</h2>
             <Select onValueChange={(value) => selectedTheme(value)}>
                 <SelectTrigger className="w-full">
@@ -35,7 +40,29 @@ const Controller = ({ selectedTheme }) => {
                     })}
                 </SelectContent>
             </Select>
+            {/* Background selection controller */}
+            <h2 className='mt-8 my-1'>Select Background</h2>
+            <div className="grid grid-cols-3 gap-5">
+                {GradientBg.map((bg, index) => index < showMore && (
+                    <div 
+                        className="w-full h-[70px] rounded-lg cursor-pointer hover:border-black hover:border-2 flex justify-center items-center"
+                        style={{ background: bg.gradient }}
+                        onClick={() => selectedBackground(bg.gradient)}
+                    >
+                        {index == 0 && 'None'}
+                    </div>
+                ))}
+            </div>
 
+            <Button
+                variant="ghost"
+                size="sm"
+                className="w-full mt-4"
+                onClick={() => setShowMore(showMore > 6 ? 6 : 20)}
+            >
+                {" "}
+                {showMore > 6 ? "Less" : "Show More"}
+            </Button>
         </div>
     );
 };

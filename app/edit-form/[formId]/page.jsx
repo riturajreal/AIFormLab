@@ -135,16 +135,22 @@ const EditForm = ({ params }) => {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             <div className="p-5 border rouned-lg shadow-md">
-                <Controller selectedTheme={(value) => setSelectedTheme(value)} />
+                <Controller
+                    selectedTheme={(value) => setSelectedTheme(value)}
+                    selectedBackground={(value) => setSelectedBackground(value)}
+                />
             </div>
-            <div className="md:col-span-2 border rounded-lg p-5 flex items-center justify-center">
+            <div
+                className="md:col-span-2 border rounded-lg p-5 flex items-center justify-center"
+                style={{ background: selectedBackground }}
+            >
                 <FormUi
                     jsonForm={jsonForm}
                     selectedTheme={selectedTheme}
-                    selectedBackground={selectedBackground}
                     selectedStyle={selectedStyle}
                     onFieldUpdate={onFieldUpdate}
-                    deleteField={(index) => deleteField(index)} />
+                    deleteField={(index) => deleteField(index)} 
+                />
             </div>
         </div>
     </div>;

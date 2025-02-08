@@ -14,7 +14,7 @@ import FieldEdit from "./FieldEdit";
 
 
 
-const FormUi = ({ jsonForm, onFieldUpdate, deleteField, selectedTheme, selectedBackground, selectedStyle }) => {
+const FormUi = ({ jsonForm, onFieldUpdate, deleteField, selectedTheme, selectedStyle }) => {
 
   return (
     <div className="border p-5 md:w-[600px] rounded-lg" data-theme={selectedTheme}>
