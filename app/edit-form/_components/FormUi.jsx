@@ -17,7 +17,13 @@ import FieldEdit from "./FieldEdit";
 const FormUi = ({ jsonForm, onFieldUpdate, deleteField, selectedTheme, selectedStyle }) => {
 
   return (
-    <div className="border p-5 md:w-[600px] rounded-lg" data-theme={selectedTheme}>
+    <div className="border p-5 md:w-[600px] rounded-lg"
+      data-theme={selectedTheme}
+      style={{
+        boxShadow: selectedStyle?.key == 'boxshadow' && selectedStyle.value,
+        border: selectedStyle?.key == 'border' && selectedStyle.value
+      }}
+    >
       <h1 className="font-bold text-2xl text-center">{jsonForm?.formTitle}</h1>
       <h1 className="text-sm text-gray-400 text-center">{jsonForm?.formHeading}</h1>
       {jsonForm?.fields?.map((field, index) => (

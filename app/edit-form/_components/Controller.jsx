@@ -10,9 +10,10 @@ import {
 import Themes from "../../_data/Themes";
 import GradientBg from "../../_data/GradientBg";
 import { Button } from "../../../components/ui/button";
+import Style from "../../_data/Style";
 
 
-const Controller = ({ selectedTheme, selectedBackground }) => {
+const Controller = ({ selectedTheme, selectedBackground, selectedStyle }) => {
     const [showMore, setShowMore] = useState(6);
     return (
         <div>
@@ -44,7 +45,7 @@ const Controller = ({ selectedTheme, selectedBackground }) => {
             <h2 className='mt-8 my-1'>Select Background</h2>
             <div className="grid grid-cols-3 gap-5">
                 {GradientBg.map((bg, index) => index < showMore && (
-                    <div 
+                    <div
                         className="w-full h-[70px] rounded-lg cursor-pointer hover:border-black hover:border-2 flex justify-center items-center"
                         style={{ background: bg.gradient }}
                         onClick={() => selectedBackground(bg.gradient)}
@@ -63,6 +64,26 @@ const Controller = ({ selectedTheme, selectedBackground }) => {
                 {" "}
                 {showMore > 6 ? "Less" : "Show More"}
             </Button>
+            {/* Style selection controller */}
+            <h2 className="mt-8 my-1">Select Style</h2>
+            <div className="grid grid-cols-3 gap-3 mt-4">
+                {Style.map((style, index) => (
+                    <div key={index}>
+                        <div
+                            className="cursor-pointer hover:border-2 rouneded-lg border-black"
+                            onClick={() => selectedStyle(style)}
+                        >
+                            <img
+                                src={style.img}
+                                alt={style.name}
+                                width={600}
+                                height={80}
+                                className="rounded-lg"
+                            />
+                        </div>
+                    </div>
+                ))}
+            </div>
         </div>
     );
 };

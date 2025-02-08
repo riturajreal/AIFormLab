@@ -73,6 +73,10 @@ const EditForm = ({ params }) => {
         setUpdateTrigger(Date.now());
     }
 
+    const updateControllerFields = () => {
+        setUpdateTrigger(Date.now());
+    }
+
     const updateJsonFormInDb = async () => {
         try {
             setLoading(true);
@@ -136,8 +140,18 @@ const EditForm = ({ params }) => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             <div className="p-5 border rouned-lg shadow-md">
                 <Controller
-                    selectedTheme={(value) => setSelectedTheme(value)}
-                    selectedBackground={(value) => setSelectedBackground(value)}
+                    selectedTheme={(value) => {
+                        setSelectedTheme(value);
+                        updateControllerFields();
+                    }}
+                    selectedBackground={(value) => {
+                        setSelectedBackground(value);
+                        updateControllerFields();
+                    }}
+                    selectedStyle={(value) => {
+                        setSelectedStyle(value);
+                        updateControllerFields();
+                    }}
                 />
             </div>
             <div
@@ -149,7 +163,7 @@ const EditForm = ({ params }) => {
                     selectedTheme={selectedTheme}
                     selectedStyle={selectedStyle}
                     onFieldUpdate={onFieldUpdate}
-                    deleteField={(index) => deleteField(index)} 
+                    deleteField={(index) => deleteField(index)}
                 />
             </div>
         </div>
