@@ -46,6 +46,7 @@ const Controller = ({ selectedTheme, selectedBackground, selectedStyle }) => {
             <div className="grid grid-cols-3 gap-5">
                 {GradientBg.map((bg, index) => index < showMore && (
                     <div
+                        key={index}
                         className="w-full h-[70px] rounded-lg cursor-pointer hover:border-black hover:border-2 flex justify-center items-center"
                         style={{ background: bg.gradient }}
                         onClick={() => selectedBackground(bg.gradient)}

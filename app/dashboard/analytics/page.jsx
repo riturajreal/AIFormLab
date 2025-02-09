@@ -31,9 +31,9 @@ const AnalyticsPage = () => {
             <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-6">
               <h2 className="text-xl font-semibold text-white mb-4">Recent Forms</h2>
               <div className="space-y-4">
-                {[1, 2, 3].map((form) => (
+                {[1, 2, 3].map((form, index) => (
                   <div 
-                    key={form}
+                    key={index}
                     className="flex items-center justify-between p-4 bg-zinc-800/50 rounded-lg hover:bg-zinc-800 transition-colors"
                   >
                     <div>
