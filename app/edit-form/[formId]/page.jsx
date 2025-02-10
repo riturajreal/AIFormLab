@@ -24,6 +24,7 @@ const EditForm = ({ params }) => {
     const [selectedTheme, setSelectedTheme] = useState("light");
     const [selectedBackground, setSelectedBackground] = useState("");
     const [selectedStyle, setSelectedStyle] = useState("");
+    const [signInEnabled, setSignInEnabled] = useState(false);
     const router = useRouter();
 
 
@@ -87,6 +88,7 @@ const EditForm = ({ params }) => {
                     theme: selectedTheme,
                     background: selectedBackground,
                     style: JSON.stringify(selectedStyle),
+                    enabledSignIn: signInEnabled
                 })
                 .where(
                     and(
@@ -150,6 +152,10 @@ const EditForm = ({ params }) => {
                     }}
                     selectedStyle={(value) => {
                         setSelectedStyle(value);
+                        updateControllerFields();
+                    }}
+                    setSignInEnabled={(value) => {
+                        setSignInEnabled(value);
                         updateControllerFields();
                     }}
                 />

@@ -11,9 +11,10 @@ import Themes from "../../_data/Themes";
 import GradientBg from "../../_data/GradientBg";
 import { Button } from "../../../components/ui/button";
 import Style from "../../_data/Style";
+import { Checkbox } from "../../../components/ui/checkbox";
 
 
-const Controller = ({ selectedTheme, selectedBackground, selectedStyle }) => {
+const Controller = ({ selectedTheme, selectedBackground, selectedStyle, setSignInEnabled }) => {
     const [showMore, setShowMore] = useState(6);
     return (
         <div>
@@ -66,25 +67,31 @@ const Controller = ({ selectedTheme, selectedBackground, selectedStyle }) => {
                 {showMore > 6 ? "Less" : "Show More"}
             </Button>
             {/* Style selection controller */}
-            <h2 className="mt-8 my-1">Select Style</h2>
-            <div className="grid grid-cols-3 gap-3 mt-4">
-                {Style.map((style, index) => (
-                    <div key={index}>
-                        <div
-                            className="cursor-pointer hover:border-2 rouneded-lg border-black"
-                            onClick={() => selectedStyle(style)}
-                        >
-                            <img
-                                src={style.img}
-                                alt={style.name}
-                                width={600}
-                                height={80}
-                                className="rounded-lg"
-                            />
+            <div className="mt-8">
+                <h2 className="mt-8 my-1">Select Style</h2>
+                <div className="grid grid-cols-3 gap-3 mt-4">
+                    {Style.map((style, index) => (
+                        <div key={index}>
+                            <div
+                                className="cursor-pointer hover:border-2 rouneded-lg border-black"
+                                onClick={() => selectedStyle(style)}
+                            >
+                                <img
+                                    src={style.img}
+                                    alt={style.name}
+                                    width={600}
+                                    height={80}
+                                    className="rounded-lg"
+                                />
+                            </div>
+                            <h2 className="text-center">{style.name}</h2>
                         </div>
-                        <h2 className="text-center">{style.name}</h2>
-                    </div>
-                ))}
+                    ))}
+                </div>
+            </div>
+            {/* for social auth check */}
+            <div className="mt-10 flex items-center gap-2">
+                <Checkbox onCheckedChange={(e) => setSignInEnabled(e)} /> <h2>Enable Social Authentication before submitting</h2>
             </div>
         </div>
     );

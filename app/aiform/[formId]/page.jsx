@@ -49,6 +49,7 @@ const LiveAiForm = ({params}) => {
                 selectedTheme={record?.theme}
                 editable={false}
                 formId={record?.id}
+                enabledSignIn={record?.enabledSignIn}
             />
         )}
         <Link
