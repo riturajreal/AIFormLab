@@ -135,12 +135,12 @@ const FormUi = ({ jsonForm, selectedTheme, selectedStyle,
               <Select required={field?.required}
                 onValueChange={(v) => handleSelectChange(field.fieldName, v)}>
                 <SelectTrigger className="w-full bg-transparent">
-                  <SelectValue placeholder={field.placeholder} />
+                  <SelectValue placeholder={field?.placeholder} />
                 </SelectTrigger>
                 <SelectContent>
                   {field?.options?.map((item, index) => (
-                    <SelectItem key={index} value={item}>
-                      {item}
+                    <SelectItem key={index} value={typeof item === "object" ? item.value : item}>
+                      {typeof item === "object" ? item.label : item}
                     </SelectItem>
                   ))}
                 </SelectContent>
