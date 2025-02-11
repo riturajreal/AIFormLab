@@ -2,11 +2,13 @@
 import { SignedIn } from "@clerk/nextjs";
 import SideNav from "./_components/SideNav";
 import React from "react";
+import Header from "../_components/Header";
 
 const DashboardLayout = ({ children }) => {
   return (
     <SignedIn>
-      <div>
+      <div className="min-h-screen">
+        <Header />
         <div className="md:w-64 fixed">
           <SideNav/>
         </div>

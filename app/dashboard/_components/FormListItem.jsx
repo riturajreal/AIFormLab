@@ -1,7 +1,7 @@
 'use client';
 import React, { useState } from "react";
 import { Button } from "../../../components/ui/button";
-import { Edit, Share, Share2, Trash } from "lucide-react";
+import { Edit, Share2, Trash } from "lucide-react";
 import Link from "next/link";
 import {
     AlertDialog,
@@ -13,7 +13,7 @@ import {
     AlertDialogHeader,
     AlertDialogTitle,
     AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
+} from "@/components/ui/alert-dialog";
 import { useUser } from "@clerk/nextjs";
 import { db } from "../../../config";
 import { JsonForms } from "../../../config/schema";
@@ -21,9 +21,7 @@ import { and, eq } from "drizzle-orm";
 import { toast } from 'sonner';
 import { RWebShare } from 'react-web-share';
 
-
 const FormListItem = ({ jsonForm, formRecord, refreshData }) => {
-
     const { user } = useUser();
     const [loading, setLoading] = useState(false);
 
@@ -36,8 +34,8 @@ const FormListItem = ({ jsonForm, formRecord, refreshData }) => {
                         eq(JsonForms.id, formRecord.id),
                         eq(JsonForms.createdBy, user?.primaryEmailAddress?.emailAddress)
                     )
-                )
-            if (result === 0) {  // Check if no rows were deleted
+                );
+            if (result === 0) {
                 setLoading(false);
                 toast.error('Failed to delete the form. Please try again.');
                 return;
@@ -53,19 +51,19 @@ const FormListItem = ({ jsonForm, formRecord, refreshData }) => {
     };
 
     return (
-        <div className="border shadow-md rounded-lg p-5">
+        <div className="border shadow-md rounded-lg p-5 bg-white dark:bg-gray-800 dark:border-gray-700">
             <div className="flex justify-between">
                 <h2></h2>
                 <AlertDialog>
                     <AlertDialogTrigger asChild>
-                        <Trash
-                            className="h-5 w-5 text-red-500 cursor-pointer hover:scale-105 transition-all"
-                        />
+                        <Trash className="h-5 w-5 text-red-500 cursor-pointer hover:scale-105 transition-all" />
                     </AlertDialogTrigger>
-                    <AlertDialogContent>
+                    <AlertDialogContent className="bg-white dark:bg-gray-900">
                         <AlertDialogHeader>
-                            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                            <AlertDialogDescription>
+                            <AlertDialogTitle className="text-black dark:text-white">
+                                Are you absolutely sure?
+                            </AlertDialogTitle>
+                            <AlertDialogDescription className="text-gray-600 dark:text-gray-300">
                                 This action cannot be undone. This will permanently delete your form
                                 and remove your data from our servers.
                             </AlertDialogDescription>
@@ -77,13 +75,13 @@ const FormListItem = ({ jsonForm, formRecord, refreshData }) => {
                     </AlertDialogContent>
                 </AlertDialog>
             </div>
-            <h2 className="text-lg text-black">{jsonForm?.formTitle}</h2>
-            <h2 className="text-sm text-gray-500">{jsonForm?.formTitle}</h2>
-            <hr className="my-4" />
+            <h2 className="text-lg text-black dark:text-white">{jsonForm?.formTitle}</h2>
+            <h2 className="text-sm text-gray-500 dark:text-gray-400">{jsonForm?.formTitle}</h2>
+            <hr className="my-4 border-gray-300 dark:border-gray-700" />
             <div className="flex justify-between">
                 <RWebShare
                     data={{
-                        text: jsonForm?.formHeading + "Build your form in seconds using AI Builder",
+                        text: jsonForm?.formHeading + " Build your form in seconds using AI Builder",
                         url: process.env.NEXT_PUBLIC_BASE_URL + "/aiform/" + formRecord?.id,
                         title: jsonForm?.formTitle,
                     }}
@@ -93,14 +91,16 @@ const FormListItem = ({ jsonForm, formRecord, refreshData }) => {
                     <Button
                         variant="outline"
                         size="sm"
-                        className="flex items-center gap-2 "
+                        className="flex items-center gap-2 border-gray-300 dark:border-gray-600 dark:text-white"
                     >
                         <Share2 className="h-5 w-5" /> Share
                     </Button>
                 </RWebShare>
 
                 <Link href={`/edit-form/${formRecord.id}`}>
-                    <Button size="sm" className='flex gap-2'><Edit className="h-5 w-5" /> Edit</Button>
+                    <Button size="sm" className="flex gap-2 dark:bg-gray-700 dark:text-white">
+                        <Edit className="h-5 w-5" /> Edit
+                    </Button>
                 </Link>
             </div>
         </div>
