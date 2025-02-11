@@ -5,7 +5,7 @@ import { JsonForms } from "../../../config/schema";
 import { and, eq } from "drizzle-orm";
 import { useUser } from "@clerk/nextjs";
 import { usePathname, useRouter } from "next/navigation";
-import { ArrowLeft, Share2, SquareArrowOutUpRight } from "lucide-react";
+import { ArrowLeft, Loader, Share2, SquareArrowOutUpRight } from "lucide-react";
 import Link from "next/link";
 import { Button } from "../../../components/ui/button";
 import { RWebShare } from "react-web-share";
@@ -110,7 +110,7 @@ const EditForm = ({ params }) => {
         <div className="p-6 bg-white dark:bg-gray-900 min-h-screen">
             {loading ? (
                 <div className="flex justify-center items-center min-h-screen">
-                    <span className="h-8 w-8 border-4 border-t-gray-900 border-gray-300 dark:border-t-white dark:border-gray-600 rounded-full animate-spin"></span>
+                    <Loader className="h-6 w-6 animate-spin text-gray-600 dark:text-gray-300" />
                 </div>
             ) : (
                 <>

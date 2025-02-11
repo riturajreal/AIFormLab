@@ -16,7 +16,7 @@ import { useRouter } from 'next/navigation'
 import { db } from "@/config";
 import { JsonForms } from "@/config/schema";
 import moment from 'moment';
-import { Loader2 } from "lucide-react";
+import { Loader } from "lucide-react";
 
 const CreateForm = () => {
   const [openDialog, setOpenDialog] = useState(false);
@@ -72,7 +72,7 @@ const CreateForm = () => {
             />
             <div className="flex gap-2 my-3 justify-end">
               <Button disabled={loading} onClick={onCreateFrom} className="dark:bg-gray-700 dark:hover:bg-gray-600">
-                {loading ? <Loader2 className="animate-spin h-5 w-5" /> : 'Submit'}
+                {loading ? <Loader className="h-6 w-6 animate-spin text-gray-600 dark:text-gray-300" />: 'Submit'}
               </Button>
               <Button 
                 variant="destructive" 

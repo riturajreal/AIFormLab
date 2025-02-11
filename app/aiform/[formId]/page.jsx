@@ -6,6 +6,7 @@ import { eq } from "drizzle-orm";
 import Image from "next/image";
 import Link from "next/link";
 import FormUi from "../../edit-form/_components/FormUi";
+import { Loader } from "lucide-react";
 
 const LiveAiForm = ({ params }) => {
     const [record, setRecord] = useState(null);
@@ -43,7 +44,7 @@ const LiveAiForm = ({ params }) => {
         >
             {loading ? (
                 <div className="flex justify-center items-center">
-                    <span className="h-6 w-6 border-4 border-t-gray-900 border-gray-300 dark:border-t-white dark:border-gray-600 rounded-full animate-spin"></span>
+                    <Loader className="h-6 w-6 animate-spin text-gray-600 dark:text-gray-300" />
                 </div>
             ) : (
                 <>
