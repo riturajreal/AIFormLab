@@ -62,8 +62,6 @@ const SideNav = () => {
                 .where(eq(JsonForms.createdBy, user.primaryEmailAddress.emailAddress))
                 .orderBy(desc(JsonForms.id));
     
-            console.log("Fetched Forms:", result);
-    
             if (!result || result.length === 0) {
                 console.warn("No forms found for the user.");
                 setFormList([]);

@@ -48,7 +48,6 @@ const EditForm = ({ params }) => {
             setSelectedTheme(result[0].theme);
             setSelectedBackground(result[0].background);
             setSelectedStyle(JSON.parse(result[0].style));
-            console.log("result: ", result);
             setLoading(false);
         } catch (error) {
             setError(error);
@@ -66,6 +65,7 @@ const EditForm = ({ params }) => {
     const onFieldUpdate = (value, index) => {
         jsonForm.fields[index].label = value.label;
         jsonForm.fields[index].placeholder = value.placeholder;
+        jsonForm.fields[index].options = value.options;
         setUpdateTrigger(Date.now());
     };
 
@@ -96,7 +96,6 @@ const EditForm = ({ params }) => {
                         eq(JsonForms.createdBy, user?.primaryEmailAddress?.emailAddress)
                     )
                 );
-            console.log("result: ", result);
             setLoading(false);
             toast.success("Form Updated Successfully");
         } catch (error) {

@@ -42,7 +42,7 @@ const FormListItemResp = ({ formRecord, jsonForm }) => {
             });
             exportToExcel(jsonData);
         } catch (error) {
-            console.log(error);
+            console.error(error);
             setLoading(false);
         }
     };
@@ -114,8 +114,6 @@ const FormListItemResp = ({ formRecord, jsonForm }) => {
         // Save file
         XLSX.writeFile(workbook, jsonForm?.formTitle + ".xlsx");
     };
-
-    console.log("data", jsonData)
 
     return (
         <div className="border shadow-sm rounded-lg p-4 hover:shadow-xl duration-150">

@@ -25,11 +25,10 @@ const ResponsesPage = () => {
                 .from(JsonForms)
                 .where(eq(JsonForms.createdBy, user?.primaryEmailAddress?.emailAddress))
                 .orderBy(desc(JsonForms.id));
-            console.log("result: ", result);
             setFormList(result);
             setLoading(false);
         } catch (error) {
-            console.log(error);
+            console.error(error);
             setLoading(false);
         }
     };
