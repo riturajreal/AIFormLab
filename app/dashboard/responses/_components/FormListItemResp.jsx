@@ -33,13 +33,45 @@ const FormListItemResp = ({ formRecord, jsonForm }) => {
 
     // Convert JSON into EXCEL File to download it
     const exportToExcel = (jsonData) => {
-        const worksheet = XLSX.utils.json_to_sheet(jsonData);
+        // Function to flatten a JSON object
+        const flattenObject = (obj, prefix = "") => {
+            let flattened = {};
+
+            Object.keys(obj).forEach((key) => {
+                const newKey = prefix ? `${prefix} - ${key}` : key;
+
+                if (Array.isArray(obj[key])) {
+                    // If the value is an array of objects (e.g., checkbox fields)
+                    if (obj[key].every((item) => typeof item === "object")) {
+                        flattened[newKey] = obj[key]
+                            .filter((item) => item.value) // Only keep selected values
+                            .map((item) => item.label)
+                            .join(", ");
+                    } else {
+                        flattened[newKey] = obj[key].join(", "); // Convert arrays to strings
+                    }
+                } else if (typeof obj[key] === "object" && obj[key] !== null) {
+                    // Recursively flatten nested objects
+                    Object.assign(flattened, flattenObject(obj[key], newKey));
+                } else {
+                    flattened[newKey] = obj[key]; // Keep other values as they are
+                }
+            });
+
+            return flattened;
+        };
+
+        // Transform all responses before exporting
+        const transformedData = jsonData.map((item) => flattenObject(item));
+
+        const worksheet = XLSX.utils.json_to_sheet(transformedData);
         const workbook = XLSX.utils.book_new();
 
-        XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
+        XLSX.utils.book_append_sheet(workbook, worksheet, "Responses");
 
         XLSX.writeFile(workbook, jsonForm?.formTitle + ".xlsx");
-    }
+    };
+
 
     return (
         <div className="border shadow-sm rounded-lg p-4 hover:shadow-xl duration-150">
