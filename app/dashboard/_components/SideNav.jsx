@@ -34,12 +34,12 @@ const SideNav = () => {
             path: "/dashboard/analytics"
         },
 
-        {
-            id: 4,
-            name: "Upgrade",
-            icon: Shield,
-            path: "/dashboard/upgrade",
-        },
+        // {
+        //     id: 4,
+        //     name: "Upgrade",
+        //     icon: Shield,
+        //     path: "/dashboard/upgrade",
+        // },
     ];
 
     const { user } = useUser();
@@ -107,7 +107,7 @@ const SideNav = () => {
             </div>
 
             {/* Create new Button and Progress */}
-            <div className="fixed bottom-7 p-6 w-64">
+            {/* <div className="fixed bottom-7 p-6 w-64">
                 <Button className="w-full">+ Create Form</Button>
 
                 <div className="my-5">
@@ -120,7 +120,7 @@ const SideNav = () => {
                         Upgrade your Plan for unlimited AI Form
                     </h2>
                 </div>
-            </div>
+            </div> */}
         </div>
     );
 };
