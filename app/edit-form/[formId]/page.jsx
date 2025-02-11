@@ -108,76 +108,84 @@ const EditForm = ({ params }) => {
 
     return (
         <div className="p-6 bg-white dark:bg-gray-900 min-h-screen">
-            <div className="md:flex md:items-center md:justify-between">
-                <h2
-                    onClick={() => router.back()}
-                    className="flex gap-2 items-center my-5 cursor-pointer hover:font-semibold transition-all text-gray-900 dark:text-white"
-                >
-                    <ArrowLeft /> Back
-                </h2>
-                {/* Controls */}
-                <div className="flex items-center justify-between gap-2 mb-4 md:mb-0">
-                    <Link href={`/aiform/${record?.id}`} target="_blank">
-                        <Button 
-                            variant="outline" 
-                            className="flex items-center gap-2 border-gray-300 dark:border-gray-600 dark:text-white dark:hover:bg-gray-700"
+            {loading ? (
+                <div className="flex justify-center items-center min-h-screen">
+                    <span className="h-8 w-8 border-4 border-t-gray-900 border-gray-300 dark:border-t-white dark:border-gray-600 rounded-full animate-spin"></span>
+                </div>
+            ) : (
+                <>
+                    <div className="md:flex md:items-center md:justify-between">
+                        <h2
+                            onClick={() => router.back()}
+                            className="flex gap-2 items-center my-5 cursor-pointer hover:font-semibold transition-all text-gray-900 dark:text-white"
                         >
-                            <SquareArrowOutUpRight className="h-5 w-5" />
-                            Live Preview
-                        </Button>
-                    </Link>
+                            <ArrowLeft /> Back
+                        </h2>
+                        {/* Controls */}
+                        <div className="flex items-center justify-between gap-2 mb-4 md:mb-0">
+                            <Link href={`/aiform/${record?.id}`} target="_blank">
+                                <Button
+                                    variant="outline"
+                                    className="flex items-center gap-2 border-gray-300 dark:border-gray-600 dark:text-white dark:hover:bg-gray-700"
+                                >
+                                    <SquareArrowOutUpRight className="h-5 w-5" />
+                                    Live Preview
+                                </Button>
+                            </Link>
 
-                    {/* Web Share */}
-                    <RWebShare
-                        data={{
-                            text: jsonForm?.formHeading + " Build your form in seconds using AI Builder",
-                            url: process.env.NEXT_PUBLIC_BASE_URL + "/aiform/" + record?.id,
-                            title: jsonForm?.formTitle,
-                        }}
-                        disableNative={true}
-                        onClick={() => console.log("shared successfully!")}
-                    >
-                        <Button className="flex items-center gap-2 bg-gray-700 hover:bg-gray-950 dark:bg-gray-600 dark:hover:bg-gray-800 dark:text-white">
-                            <Share2 className="h-5 w-5" /> Share
-                        </Button>
-                    </RWebShare>
-                </div>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-                <div className="p-5 border rounded-lg shadow-md bg-gray-100 dark:bg-gray-800 dark:border-gray-700">
-                    <Controller
-                        selectedTheme={(value) => {
-                            setSelectedTheme(value);
-                            updateControllerFields();
-                        }}
-                        selectedBackground={(value) => {
-                            setSelectedBackground(value);
-                            updateControllerFields();
-                        }}
-                        selectedStyle={(value) => {
-                            setSelectedStyle(value);
-                            updateControllerFields();
-                        }}
-                        setSignInEnabled={(value) => {
-                            setSignInEnabled(value);
-                            updateControllerFields();
-                        }}
-                    />
-                </div>
-                <div
-                    className="md:col-span-2 border rounded-lg p-5 flex items-center justify-center dark:border-gray-700"
-                    style={{ background: selectedBackground }}
-                >
-                    <FormUi
-                        jsonForm={jsonForm}
-                        selectedTheme={selectedTheme}
-                        selectedStyle={selectedStyle}
-                        onFieldUpdate={onFieldUpdate}
-                        deleteField={(index) => deleteField(index)}
-                        formId={record?.id}
-                    />
-                </div>
-            </div>
+                            {/* Web Share */}
+                            <RWebShare
+                                data={{
+                                    text: jsonForm?.formHeading + " Build your form in seconds using AI Builder",
+                                    url: process.env.NEXT_PUBLIC_BASE_URL + "/aiform/" + record?.id,
+                                    title: jsonForm?.formTitle,
+                                }}
+                                disableNative={true}
+                                onClick={() => console.log("shared successfully!")}
+                            >
+                                <Button className="flex items-center gap-2 bg-gray-700 hover:bg-gray-950 dark:bg-gray-600 dark:hover:bg-gray-800 dark:text-white">
+                                    <Share2 className="h-5 w-5" /> Share
+                                </Button>
+                            </RWebShare>
+                        </div>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                        <div className="p-5 border rounded-lg shadow-md bg-gray-100 dark:bg-gray-800 dark:border-gray-700">
+                            <Controller
+                                selectedTheme={(value) => {
+                                    setSelectedTheme(value);
+                                    updateControllerFields();
+                                }}
+                                selectedBackground={(value) => {
+                                    setSelectedBackground(value);
+                                    updateControllerFields();
+                                }}
+                                selectedStyle={(value) => {
+                                    setSelectedStyle(value);
+                                    updateControllerFields();
+                                }}
+                                setSignInEnabled={(value) => {
+                                    setSignInEnabled(value);
+                                    updateControllerFields();
+                                }}
+                            />
+                        </div>
+                        <div
+                            className="md:col-span-2 border rounded-lg p-5 flex items-center justify-center dark:border-gray-700"
+                            style={{ background: selectedBackground }}
+                        >
+                            <FormUi
+                                jsonForm={jsonForm}
+                                selectedTheme={selectedTheme}
+                                selectedStyle={selectedStyle}
+                                onFieldUpdate={onFieldUpdate}
+                                deleteField={(index) => deleteField(index)}
+                                formId={record?.id}
+                            />
+                        </div>
+                    </div>
+                </>
+            )}
         </div>
     );
 };
