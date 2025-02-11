@@ -33,13 +33,15 @@ const FormListItemResp = ({ formRecord, jsonForm }) => {
 
     // Convert JSON into EXCEL File to download it
     const exportToExcel = (jsonData) => {
+        if (jsonData.length === 0) return;
+    
         // Function to flatten a JSON object
         const flattenObject = (obj, prefix = "") => {
             let flattened = {};
-
+    
             Object.keys(obj).forEach((key) => {
                 const newKey = prefix ? `${prefix} - ${key}` : key;
-
+    
                 if (Array.isArray(obj[key])) {
                     // If the value is an array of objects (e.g., checkbox fields)
                     if (obj[key].every((item) => typeof item === "object")) {
@@ -57,20 +59,46 @@ const FormListItemResp = ({ formRecord, jsonForm }) => {
                     flattened[newKey] = obj[key]; // Keep other values as they are
                 }
             });
-
+    
             return flattened;
         };
-
-        // Transform all responses before exporting
+    
+        // Function to format headers properly
+        const formatHeader = (key) => {
+            return key
+                .replace(/([a-z])([A-Z])/g, "$1 $2") // Add space between camelCase words
+                .replace(/_/g, " ")                  // Replace underscores with spaces
+                .replace(/\b\w/g, (char) => char.toUpperCase()); // Capitalize first letter of each word
+        };
+    
+        // Transform responses & flatten data
         const transformedData = jsonData.map((item) => flattenObject(item));
-
-        const worksheet = XLSX.utils.json_to_sheet(transformedData);
+    
+        // Get original headers from the first response
+        const originalHeaders = Object.keys(transformedData[0]);
+    
+        // Convert headers to formatted headers
+        const formattedHeaders = originalHeaders.map(formatHeader);
+    
+        // Create worksheet
+        const worksheet = XLSX.utils.json_to_sheet(transformedData, {
+            header: originalHeaders, // Use original keys for data mapping
+        });
+    
+        // Rename column headers in worksheet
+        originalHeaders.forEach((key, index) => {
+            const cellAddress = XLSX.utils.encode_cell({ r: 0, c: index }); // Get Excel cell (e.g., A1, B1)
+            worksheet[cellAddress].v = formattedHeaders[index]; // Update cell value
+        });
+    
+        // Create workbook
         const workbook = XLSX.utils.book_new();
-
         XLSX.utils.book_append_sheet(workbook, worksheet, "Responses");
-
+    
+        // Save file
         XLSX.writeFile(workbook, jsonForm?.formTitle + ".xlsx");
     };
+    
 
 
     return (
