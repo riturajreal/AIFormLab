@@ -69,6 +69,16 @@ const EditForm = ({ params }) => {
         setUpdateTrigger(Date.now());
     };
 
+    const addField = (field) => {
+        jsonForm.fields.push({
+            fieldType: field?.fieldType,
+            label: field?.label,
+            placeholder: field?.placeholder,
+            options: field?.options
+        });
+        setUpdateTrigger(Date.now());
+    }
+
     const deleteField = (index) => {
         jsonForm.fields.splice(index, 1);
         setUpdateTrigger(Date.now());
@@ -167,6 +177,7 @@ const EditForm = ({ params }) => {
                                     setSignInEnabled(value);
                                     updateControllerFields();
                                 }}
+                                addField={(field) => addField(field)}
                             />
                         </div>
                         <div

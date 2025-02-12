@@ -27,13 +27,14 @@ const FieldEdit = ({ defaultValue, onUpdate, deleteField }) => {
     // Handle updating an option (for select, radio, checkbox)
     const handleOptionChange = (index, newValue) => {
         const updatedOptions = [...options];
-        updatedOptions[index] = newValue;
+        updatedOptions[index].label = newValue;
+        updatedOptions[index].value = newValue;
         setOptions(updatedOptions);
     };
 
     // Add a new option
     const addOption = () => {
-        setOptions([...options, ""]); // Add an empty string as a new option
+        setOptions([...options, {label:"", vakue:""}]); // Add an empty string as a new option
     };
 
     // Remove an option

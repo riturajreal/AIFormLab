@@ -12,10 +12,25 @@ import GradientBg from "../../_data/GradientBg";
 import { Button } from "../../../components/ui/button";
 import Style from "../../_data/Style";
 import { Checkbox } from "../../../components/ui/checkbox";
+import { Trash } from "lucide-react";
+import { Input } from "@/components/ui/input";
 
 
-const Controller = ({ selectedTheme, selectedBackground, selectedStyle, setSignInEnabled }) => {
+const Controller = ({ selectedTheme, selectedBackground, selectedStyle, setSignInEnabled, addField }) => {
     const [showMore, setShowMore] = useState(6);
+    const [fields, setFields] = useState([]);
+
+    // Add new field
+    const addNewField = (type) => {
+        addField({
+            fieldType: type,
+            label: "enter your label",
+            options: type !== "text" ? [{ value: "Option 1", label: "Option 1" }, { value: "Option 2", label: "Option 2" }] : null,
+            placeholder: type === "text" ? "enter your placholder" : null
+        });
+    };
+
+
     return (
         <div>
             {/* theme selection controller */}
@@ -87,6 +102,16 @@ const Controller = ({ selectedTheme, selectedBackground, selectedStyle, setSignI
                             <h2 className="text-center">{style.name}</h2>
                         </div>
                     ))}
+                </div>
+            </div>
+            {/* Add Fields Section */}
+            <div className="mt-8">
+                <h2 className="my-2">Add Fields</h2>
+                <div className="flex gap-2">
+                    <Button onClick={() => addNewField("text")}>+ Text</Button>
+                    <Button onClick={() => addNewField("select")}>+ Select</Button>
+                    <Button onClick={() => addNewField("radio")}>+ Radio</Button>
+                    <Button onClick={() => addNewField("checkbox")}>+ Checkbox</Button>
                 </div>
             </div>
             {/* for social auth check */}
