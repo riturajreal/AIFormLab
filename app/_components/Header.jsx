@@ -19,7 +19,7 @@ const Header = () => {
 
   return (
     !path.includes("aiform") && (
-      <div className="p-5 border-b shadow-sm bg-white dark:bg-gray-900">
+      <div className="fixed top-0 left-0 w-full z-50 p-5 border-b shadow-sm bg-white dark:bg-gray-900">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link href="/">
@@ -31,6 +31,7 @@ const Header = () => {
             <Button
               variant="outline"
               onClick={() => setTheme(currentTheme === "dark" ? "light" : "dark")}
+              className="border-gray-300 dark:border-gray-600 dark:text-white"
             >
               {currentTheme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
             </Button>
@@ -39,9 +40,15 @@ const Header = () => {
             {isSignedIn ? (
               <>
                 <Link href={"/dashboard"}>
-                  <Button variant="outline">Dashboard</Button>
+                  <Button
+                    variant="outline"
+                    className="border-gray-300 dark:border-gray-600 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700"
+                  >
+                    Dashboard
+                  </Button>
                 </Link>
                 <UserButton />
+
               </>
             ) : (
               <SignInButton>
