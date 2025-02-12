@@ -95,7 +95,8 @@ const FormUi = ({ jsonForm, selectedTheme, selectedStyle,
       const result = await db.insert(userResponses).values({
         jsonResponse: formData,
         createdAt: moment().format('DD/MM/YYYY'), 
-        formRef:formId
+        formRef:formId,
+        createdBy: user?.primaryEmailAddress?.emailAddress
       });
   
       if (result) {
